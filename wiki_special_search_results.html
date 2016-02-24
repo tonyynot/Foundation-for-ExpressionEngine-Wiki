@@ -1,0 +1,26 @@
+{if no_results}<div class="alert alert-info">
+<p>We found no results for <b>{keywords}</b></p>
+</div>{/if}
+{if results}<div class="alert alert-info">
+<p>Search results for <b>{keywords}</b></p>
+</div>{/if}
+{wiki:search_results limit="10"}
+<h2><a href="{path:view_article}">{title}</a></h2>
+<h6>Last Updated on {revision_date format="%j %M %Y"} by <a href="{path:author_profile}">{author}</a> {if notes}({notes}){/if}</h6>
+<div class="well">{excerpt}</div>
+{paginate}
+	{pagination_links}
+	<ul class="side-nav no-bullet" role="navigation">
+		{first_page}
+		<li><a href="{pagination_url}" class="page-first">«</a></li>
+		{/first_page}
+		{page}
+		<li class="{if current_page}active{/if}"><a href="{pagination_url}">{pagination_page_number}</a></li>
+		{/page}
+		{last_page}
+		<li><a href="{pagination_url}" class="page-last">»</a></li>
+		{/last_page}
+	</ul>
+	{/pagination_links}
+{/paginate}
+{/wiki:search_results}

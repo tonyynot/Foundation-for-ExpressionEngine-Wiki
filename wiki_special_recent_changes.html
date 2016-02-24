@@ -1,0 +1,35 @@
+<table>
+  <thead>
+    <tr>
+			<th width="200">Title</th>
+			<th>Date</th>
+			<th>User</th>
+		</tr>
+	</thead>
+	<tbody>
+		{wiki:recent_changes limit="50" paginate="bottom"}
+		<tr>
+			<td><a href="{path:view_article}">{title}</a></td>
+			<td>{revision_date format="%H:%i, %j %M %Y"}</td>
+			<td><a href="{path:author_profile}">{author}</a> {if notes}({notes}){/if}</td>
+
+			{paginate}
+
+		{pagination_links}
+		<ul class="no-bullet">
+			{first_page}
+			<li><a href="{pagination_url}" class="page-first">«</a></li>
+			{/first_page}
+			{page}
+			<li class="{if current_page}active{/if}"><a href="{pagination_url}">{pagination_page_number}</a></li>
+			{/page}
+			{last_page}
+			<li><a href="{pagination_url}" class="page-last">»</a></li>
+			{/last_page}
+		</ul>
+		{/pagination_links}
+	{/paginate}
+{/wiki:recent_changes}
+</tr>
+</tbody>
+</table>

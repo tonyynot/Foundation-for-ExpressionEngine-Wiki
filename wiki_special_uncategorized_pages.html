@@ -1,0 +1,30 @@
+<div class="well">
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label for="namespace" class="small-2 columns control-label">Namespace</label>
+			<div class="small-10 columns">
+				<select id="namespace" class="form" onchange="location.href=this.value">
+					<option value="{path:wiki_base_url}{special_namespace}:Uncategorized/">{main_namespace}</option>
+					{wiki:custom_namespaces_list}
+					<option value="{path:wiki_base_url}{special_namespace}:Uncategorized/{namespace_short_name}/" {namespace_selected}>{namespace_label}</option>
+					{/wiki:custom_namespaces_list}
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+{wiki:title_list columns="3"}
+{if no_results}<div class="alert alert-danger">
+	<p>Sorry, there seem to be no uncategorized articles for this namespace.</p>
+</div>{/if}
+{articles}
+{row_start}<div class="row">{/row_start}
+	{row_column}
+	<div class="small-4 columns">
+		<a href="{path:view_article}" class="list-group-item">{title}</a>
+	</div>
+	{/row_column}
+	{row_blank}<div class="small-4 columns"></div>{/row_blank}
+{row_end}</div>{/row_end}
+{/articles}
+{/wiki:title_list}

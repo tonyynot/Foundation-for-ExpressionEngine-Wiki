@@ -1,0 +1,16 @@
+{if no_history}<div class="alert alert-info">
+	<p>There is no history for this page.</p>
+</div>{/if}
+{if history}
+<table class="table table-striped table-hover ">
+	<tbody>
+		{wiki:revisions}
+		<tr><td>
+			<a href="{path:revision_link}">{revision_date format="%H:%i, %j %M %Y"}</a> &nbsp; - &nbsp; <a href="{path:member_profile}">{revision_author}</a>
+			{if notes}({revision_notes}){/if} 
+			{if can_admin}{if revision_status == 'closed'} [<a href="{path:open_revision}">Closed</a>] {/if}{if revision_status == 'open'} [<a href="{path:close_revision}">Open</a>] {/if}{/if}
+		</td></tr>
+		{/wiki:revisions}
+	</tbody>
+</table>
+{/if}

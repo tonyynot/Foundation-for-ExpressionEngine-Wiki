@@ -1,0 +1,14 @@
+{wiki:associated_pages}
+{if no_results}<div class="alert alert-info">
+	<p>No Articles Link to <a href="{path:view_orig_article}">{article_title}</a></p>
+</div>{/if}
+{header}
+<table class="table table-striped table-hover">
+	<thead>
+		<tr><td>Articles that link to <a href="{path:view_orig_article}">{article_title}</a></td></tr>
+	</thead>
+	<tbody>
+{/header}
+	<tr><td><a href="{path:view_article}">{title}</a></td></tr>
+{footer}</tbody></table>{/footer}
+{/wiki:associated_pages}

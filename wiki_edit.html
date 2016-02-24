@@ -1,0 +1,151 @@
+{if can_edit}
+{if moderated && cannot_admin}<div class="alert alert-info">
+	<p>Submissions to this topic are moderated and will not go live until approved by an Admin.</p>
+</div>{/if}
+{if old_revision}<div class="alert alert-danger">
+	<p>You are editing an out of date revision and submitting will overwrite more recent versions of this article.</p>
+</div>{/if}
+{if preview}<div class="alert alert-info">
+	<p>You are viewing a preview of your submission.  No changes to the article have been made.</p>
+</div>
+<div class="preview">{preview}</div>{/if}
+{form_declaration:wiki:edit}
+	<div class="well">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-12">
+					<textarea name="article_content" id="article_content" rows="25" class="form-control">{content}</textarea>
+				</div>
+			</div>
+			{if uploads}
+			<div class="form-group">
+				<div class="small-12 small-offset-2 columns">
+<script type="text/javascript">
+function show_uploads()
+{
+	var obj = document.getElementById('recent_uploads');
+	if (obj.style.display == "block")
+		obj.style.display = "none";
+	else
+		obj.style.display = "block";
+}
+function add_tag (ourTag)
+{
+	var theField = document.getElementById('article_content');
+	if (document.selection)
+	{
+		theSelection = document.selection.createRange().text;
+		theField.focus();
+		document.selection.createRange().text = ourTag;
+		theSelection = '';
+		theField.blur();
+		theField.focus();
+		return;
+	}
+	else if ( ! isNaN(theField.selectionEnd))
+	{
+		var selLength = theField.textLength;
+		var selStart = theField.selectionStart;
+		var selEnd = theField.selectionEnd;
+		if (selEnd <= 2 && typeof(selLength) != 'undefined')
+			selEnd = selLength;
+		var s1 = (theField.value).substring(0,selStart);
+		var s2 = (theField.value).substring(selStart, selEnd)
+		var s3 = (theField.value).substring(selEnd, selLength);
+		var newStart = selStart + ourTag.length;
+		theField.value = s1 + ourTag + s3;
+		theField.focus();
+		theField.selectionStart = newStart;
+		theField.selectionEnd = newStart;
+		return;
+	}
+	theField.value += ourTag;
+}
+</script>
+					&nbsp;<a href="javascript:void(0);" onclick="show_uploads();return false;">View 10 Most Recent File Uploads</a>
+				</div>
+			</div>
+			<div class="form-group" id="recent_uploads" style="display:none;">
+				<label class="small-2 control-label">Recent Files</label>
+				<div class="small-10"><table class="table table-striped table-hover"><tbody>
+					{wiki:files limit="10" orderby="upload_date" sort="desc"}
+					<tr><td>
+						<a href="{path:view_file}">{file_name}</a> - Uploaded: {upload_date format="%j %M %Y"}: [<a href="javascript:void(0);" onclick="add_tag('[[{file_namespace}:{file_name}]]');return false;">Add File</a>]{if is_image} - [<a href="javascript:void(0);" onclick="add_tag('[[{image_namespace}:{file_name}]]');return false;">Add Image</a>]{/if}
+					</td></tr>
+					{/wiki:files}
+				</tbody></table></div>
+			</div>
+			{/if}
+
+			<ul class="accordion" data-accordion data-allow-all-closed="true">
+        <li class="accordion-item" data-accordion-item>
+          <a class="accordion-title">Formatting Guide</a>
+          <div class="accordion-content" data-tab-content>
+						<h5>External link:</h5>
+						<code>
+								[url=http://example.com/]my site[/url]
+						</code>
+						<h5>Create or link a page:</h5>
+						<code>
+							[[Page title]]
+						</code>
+						<h5>Create single category:</h5>
+						<code>
+							[[Category:Category Name]]
+						</code>
+						<h5>Create nested category:</h5>
+						<code>
+							[[Category:Parent Category::Child Category]]
+						</code>
+						<h5>Bold text:</h5>
+						<code>
+							[b]some bold text[/b]
+						</code>
+					</div>
+				</li>
+			</ul>
+
+
+			<div class="form-group">
+				<label for="revision-notes" class="small-2 control-label">Notes</label>
+				<div class="small-12">
+					<input class="form-control" name="revision_notes" id="revision_notes" value="{revision_notes}" type="text" size="50" maxlength="80">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="redirect" class="small-2 control-label">Redirect</label>
+				<div class="small-12">
+					<input class="form-control" name="redirect" id="redirect" type="text" value="{redirect_page}" size="50" maxlength="80">
+				</div>
+			</div>
+			{if can_admin}
+			<div class="form-group">
+				<label for="rename" class="small-2 control-label">Rename</label>
+				<div class="small-12">
+					<input class="form-control" name="rename" id="rename" type="text" value="{rename}" size="50" maxlength="80">
+				</div>
+			</div>
+			<div class="small-12 columns">
+				<div class="row">
+					<input name="lock_article" id="lock_article" type="checkbox" value="y" {if locked}checked="checked"{/if}> Lock Article<br>
+					<input name="moderate_article" id="moderate_article" type="checkbox" value="y" {if moderated}checked="checked"{/if}> Moderate Article<br>
+					<input name="delete_article" id="delete_article" type="checkbox" value="y"> {if namespace == category_namespace}Delete Category{if:else}Delete Article{/if}
+				</div>
+			</div>
+			{/if}
+			<div class="form-group">
+				<div class="small-12 columns">
+					<button name="preview" class="button" type="submit" value="Preview" onclick="is_preview = true;">Preview</button>
+					<button name="submit" class="button" type="submit" value="Submit" onclick="is_preview = false;">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{/if}
+{if cannot_edit}
+<div class="alert alert-danger">
+	<p>You are not allowed to edit this page.</p>
+</div>
+<textarea rows="25" class="form-control" readonly="readonly">{content}</textarea>
+{/if}

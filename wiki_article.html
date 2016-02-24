@@ -1,0 +1,29 @@
+{if revision}<div class="alert alert-info">
+	<p>Revision from: {revision_date format="%H:%i, %j %M %Y"}</p>
+</div>{/if}
+{article}
+{if namespace == category_namespace}
+{wiki:category_subcategories style="nested"}
+{header}
+<h3>Subcategories</h3>
+<p>There {if subcategory_total == '1'}is 1 subcategory{if:else}are {subcategory_total} subcategories{/if} for this category.</p>
+{/header}
+<a href="{path:view_category}">{category_name}</a>
+{/wiki:category_subcategories}
+{wiki:category_articles limit="100"}
+{header}
+<h3>Articles in category "{topic}"</h3>
+<p>There {if articles_total == '1'}is 1 article{if:else}are {articles_total} articles{/if} for this category.</p>
+{/header}
+{letter_header}<br><h4>{letter}</h4>{/letter_header}
+<p>- <a href="{path:view_article}">{title}</a></p>
+{/wiki:category_articles}
+{/if}
+{if categories}
+<h3>Categories</h3>
+<div class="taglist well-sm well">
+	{wiki:categories style="linear"}
+	<a href="{path:view_category}">{category_name}</a>
+	{/wiki:categories}
+</div>
+{/if}

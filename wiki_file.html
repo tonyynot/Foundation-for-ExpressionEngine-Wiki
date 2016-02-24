@@ -1,0 +1,33 @@
+{if file_exists}
+{if is_image}
+<img src="{file_url}" style="margin: 0 auto 15px auto;">
+{if:else}
+<p><a href="{file_url}">Download File</a></p>
+{/if}
+<span class="help-block">{file_name} - MIME Type: {file_type} {if can_admin}[<a href="{delete_url}">Delete?</a>]{/if}</span>
+<div class="well">
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label for="summary" class="col-sm-2 control-label">Summary</label>
+			<div class="col-sm-10">
+				<div id="summary" class="form-control">{if summary}
+					{summary}{if:else}No Summary
+				{/if}</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="namespace" class="col-sm-2 control-label">Namespace</label>
+			<div class="col-sm-10">
+				<div id="namespace" class="form-control" style="height: auto;">
+					[[{file_namespace}:{file_name}]]"
+					{if is_image}<br><br>[[{image_namespace}:{file_name}]]{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{if:else}
+<div class="alert alert-danger">
+	<p>No file by this name exists.</p>
+</div>
+{/if}

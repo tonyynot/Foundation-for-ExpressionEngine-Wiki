@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{title} | {wiki_name}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/css/foundation.min.css" rel="stylesheet">
+	<meta name='MSSmartTagsPreventParsing' content='TRUE' />
+	<meta http-equiv='expires' content='-1' />
+	<meta http-equiv= 'pragma' content='no-cache' />
+	<meta name='robots' content='all' />
+	<link rel="stylesheet" href="{path:wiki_base_url}{special_namespace}:css" type="text/css" media="screen" title="Global Styles" charset="utf-8" />
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div class="row">
+			<div id="subheader">
+			<div class="large-12 columns">
+				<nav aria-label="You are here:" role="navigation">
+				<ul class="breadcrumbs" role="menubar">
+					<li><a href="{path:wiki_home}">Wiki Home</a></li>
+					{if edit_article}<li><a href="{path:view_article}">{title}</a></li>
+					{if can_edit}<li class="active">Editing</li>{/if}
+					{if cannot_edit}<li class="active">Source</li>{/if}
+					{if:elseif article_history}<li><a href="{path:view_article}">{title}</a></li>
+					<li class="active">History</li>
+					{if:elseif revision}<li><a href="{path:view_article}">{title}</a></li>
+					<li class="active">Revision - {revision_id}</li>
+					{if:else}<li class="active">{title}</li>{/if}
+				</ul>
+			</nav>
+			<hr>
+			</div>
+		</div>
+		<div class="medium-8 columns">
+			<div class="wiki-content">
+				<div id="wikinav">
+					{if special_page}
+					<a class="tiny button" href="{path:view_article}">Special Page</a>
+					{if:elseif file_page}
+					<a class="tiny button" href="{path:view_article}">File Page</a>
+					{if:else}
+					<a class="tiny button" href="{path:view_article}">View</a>
+					{if can_edit}
+					<a class="tiny button" href="{path:edit_article}{if revision}/revision/{revision_id}/{/if}">Edit</a>
+					<a class="tiny button" href="{path:article_history}">History</a>
+					{/if}
+					{/if}
+				</div>
+				<h1 class="wikititle">
+					{if edit_article}
+					{if can_edit}Editing: {/if}
+					{if cannot_edit}View Source:  {/if}
+					{/if}
+					{if article_history}Viewing History: {/if}
+					{if revision}Revision: {/if}
+					{if topic == 'index'}{wiki_name}
+					{if:else}{title}{/if}
+				</h1>
+				{if redirected}
+				<div class="alert alert-warning">
+					<p>Redirected from: <a href="{path:original_page}">{original_page}</a></p>
+				</div>
+				{/if}
+				{if redirect_page}
+				<div class="alert alert-warning">
+					<p>Page Redirects To: <a href="{path:redirect_page}">{redirect_page}</a></p>
+				</div>
+				{/if}
+				{if new_article}{if can_edit}
+				<div class="alert alert-info">
+					<p>This Article Does Not Exist Yet. Click Edit to Create!</p>
+				</div>
+				{/if}{if cannot_edit}
+				<div class="alert alert-danger">
+					<p>You are unable to add articles to the wiki. Sorry!</p>
+				</div>
+				{/if}{/if}
+				{wiki:page}
+			</div>
+		</div>
+		<div class="medium-4 columns">
+			<h4>Wiki Navigation</h4>
+			<ul class="side-nav no-bullet" role="navigation">
+				<li><a href="{path:wiki_home}">Wiki Home</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Categories" title="{special_namespace}:Categories">Categories</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Titles" title="List of Titles">Title List</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Uncategorized" title="Uncategorized Pages">Uncategorized Pages</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Random_page" title="Random Page">Random Page</a></li>
+				{if uploads}
+				<li><a href="{path:wiki_base_url}{special_namespace}:Uploads" title="Uploads">File Upload</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Files" title="Uploaded Files">Uploaded Files</a></li>
+				{/if}
+				<li><a href="{path:wiki_base_url}{special_namespace}:Recentchanges" title="Recent Changes Page">Recent Changes</a></li>
+				<li><a href="{path:wiki_base_url}{special_namespace}:Recentchanges_RSS" title="Recent Changes in RSS">RSS</a></li>
+			</ul>
+			{if article}<a class="list-group-item"<a href="{path:wiki_base_url}{special_namespace}:Associated_Pages/{url_title}" title="What Links Here">What Links Here?</a>{/if}
+
+			<h4>Search:</h4>
+			<form method="post" action="{path:wiki_base_url}{special_namespace}:Search_results">
+				<div class="input-group">
+					<input type="hidden" name="XID" value="{XID_HASH}">
+					<input type="text" class="input-group-field" name="keywords" value="" maxlength="80">
+					<div class="input-group-button">
+						<button class="button" type="submit" value="Search">Search</button>
+					</div>
+				</div>
+			</form>
+			<br>
+			<h4>Create or Find Page:</h4>
+			<form method="post" action="{path:wiki_base_url}{special_namespace}:Find_page">
+				<div class="input-group">
+					<input type="hidden" name="XID" value="{XID_HASH}">
+					<input type="text" class="input-group-field" name="title" value="" maxlength="80">
+					<div class="input-group-button">
+						<button class="button" type="submit" value="Go">Go</button>
+					</div>
+				</div>
+			</form>
+			<br>
+		</div>
+	</div>
+</body>
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/foundation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/foundation/6.1.1/js/foundation.accordion.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+        $(document).foundation();
+    });
+</script>
+</html>
