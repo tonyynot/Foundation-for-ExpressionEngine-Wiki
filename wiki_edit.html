@@ -6,9 +6,10 @@
 	<p>You are editing an out of date revision and submitting will overwrite more recent versions of this article.</p>
 </div>{/if}
 {if preview}<div class="alert alert-info">
-	<p>You are viewing a preview of your submission.  No changes to the article have been made.</p>
+	<p><small>You are viewing a preview of your submission.  No changes to the article have been made.</small></p>
 </div>
-<div class="preview">{preview}</div>{/if}
+<div class="callout primary">{preview}</div>{/if}
+<p><small>Continue editing the page below:</small></p>
 {form_declaration:wiki:edit}
 	<div class="well">
 		<div class="form-horizontal">

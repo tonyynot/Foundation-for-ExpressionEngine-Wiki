@@ -15,6 +15,7 @@
 <body>
 	<div class="row">
 			<div id="subheader">
+
 			<div class="large-12 columns">
 				<nav aria-label="You are here:" role="navigation">
 				<ul class="breadcrumbs" role="menubar">
@@ -34,29 +35,33 @@
 		</div>
 		<div class="medium-8 columns">
 			<div class="wiki-content">
-				<div id="wikinav">
-					{if special_page}
-					<a class="tiny button" href="{path:view_article}">Special Page</a>
-					{if:elseif file_page}
-					<a class="tiny button" href="{path:view_article}">File Page</a>
-					{if:else}
-					<a class="tiny button" href="{path:view_article}">View</a>
-					{if can_edit}
-					<a class="tiny button" href="{path:edit_article}{if revision}/revision/{revision_id}/{/if}">Edit</a>
-					<a class="tiny button" href="{path:article_history}">History</a>
-					{/if}
-					{/if}
+				<div class="row">
+					<div class="medium-12 columns">
+						<div id="wikinav">
+							{if special_page}
+							<a class="tiny button" href="{path:view_article}">Special Page</a>
+							{if:elseif file_page}
+							<a class="tiny button" href="{path:view_article}">File Page</a>
+							{if:else}
+							<a class="tiny button" href="{path:view_article}">View</a>
+							{if can_edit}
+							<a class="tiny button" href="{path:edit_article}{if revision}/revision/{revision_id}/{/if}">Edit</a>
+							<a class="tiny button" href="{path:article_history}">History</a>
+							{/if}
+							{/if}
+						</div>
+						<h3 class="wikititle">
+							{if edit_article}
+							{if can_edit}Editing: {/if}
+							{if cannot_edit}View Source:  {/if}
+							{/if}
+							{if article_history}Viewing History: {/if}
+							{if revision}Revision: {/if}
+							{if topic == 'index'}{wiki_name}
+							{if:else}{title}{/if}
+						</h3>
+					</div>
 				</div>
-				<h1 class="wikititle">
-					{if edit_article}
-					{if can_edit}Editing: {/if}
-					{if cannot_edit}View Source:  {/if}
-					{/if}
-					{if article_history}Viewing History: {/if}
-					{if revision}Revision: {/if}
-					{if topic == 'index'}{wiki_name}
-					{if:else}{title}{/if}
-				</h1>
 				{if redirected}
 				<div class="alert alert-warning">
 					<p>Redirected from: <a href="{path:original_page}">{original_page}</a></p>
@@ -86,13 +91,11 @@
 				<li><a href="{path:wiki_base_url}{special_namespace}:Categories" title="{special_namespace}:Categories">Categories</a></li>
 				<li><a href="{path:wiki_base_url}{special_namespace}:Titles" title="List of Titles">Title List</a></li>
 				<li><a href="{path:wiki_base_url}{special_namespace}:Uncategorized" title="Uncategorized Pages">Uncategorized Pages</a></li>
-				<li><a href="{path:wiki_base_url}{special_namespace}:Random_page" title="Random Page">Random Page</a></li>
 				{if uploads}
 				<li><a href="{path:wiki_base_url}{special_namespace}:Uploads" title="Uploads">File Upload</a></li>
 				<li><a href="{path:wiki_base_url}{special_namespace}:Files" title="Uploaded Files">Uploaded Files</a></li>
 				{/if}
 				<li><a href="{path:wiki_base_url}{special_namespace}:Recentchanges" title="Recent Changes Page">Recent Changes</a></li>
-				<li><a href="{path:wiki_base_url}{special_namespace}:Recentchanges_RSS" title="Recent Changes in RSS">RSS</a></li>
 			</ul>
 			{if article}<a class="list-group-item"<a href="{path:wiki_base_url}{special_namespace}:Associated_Pages/{url_title}" title="What Links Here">What Links Here?</a>{/if}
 
