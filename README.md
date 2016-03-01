@@ -7,4 +7,4 @@ Foundation 6 theme for ExpressionEngine Wiki
 <code>{exp:wiki base_path='wiki/index' wiki="YOUR TITLE" theme="foundation"}</code><br>
 <hr>
 
-Note: The page wrapper for the Wiki theme is wiki_page.html. Some of the links in the main nav from the original Wiki template have been removed for personal use, but they can be replaced by copy &amp; pasting from the original template.
+Note: The page wrapper for the Wiki theme is wiki_page.html. Some of the links in the main nav from the original Wiki template have been removed for personal use, but they can be replaced by copy &amp; pasting from the original Wiki template.
