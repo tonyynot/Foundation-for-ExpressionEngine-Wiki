@@ -24,28 +24,30 @@ function update_destination(obj)
 	<div class="well">
 		<div class="form-horizontal">
 			<div class="form-group">
-				<label for="file" class="col-sm-2 control-label">Choose File</label>
-				<div class="col-sm-10">
+				
+				<div class="small-12 columns">
 					<input id="file" type="file" name="userfile" size="20" onchange='update_destination(this)'>
-					{if file_types == 'images'}<span class="help-block">Only Image Uploads Are Allowed</span>
+					{if file_types == 'images'}<div class="callout warning">
+  					<p>Only image files are allowed.</p>
+				</div>
 					{if:else}<span class="help-block">Allowed File Types:</div> {file_types}</span>{/if}
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="new_filename" class="col-sm-2 control-label">New Filename</label>
-				<div class="col-sm-10">
+				<label for="new_filename" class="small-3 columns">New Filename</label>
+				<div class="small-12 columns">
 					<input class="form-control" name="new_filename" id="new_filename" type="text" maxlength="80">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="summary" class="col-sm-2 control-label">Summary</label>
-				<div class="col-sm-10">
+				<label for="summary" class="small-2 columns">Summary</label>
+				<div class="small-12 columns">
 					<textarea name='summary' id='summary' rows='10' class='form-control'></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-10 col-sm-offset-2">
-					<button name="submit" class="btn btn-default" type="submit" value="Submit">Submit</button>
+				<div class="small-12 columns">
+					<button name="submit" class="button button-default" type="submit" value="Submit">Submit</button>
 				</div>
 			</div>
 		</div>
