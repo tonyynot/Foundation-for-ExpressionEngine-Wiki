@@ -1,13 +1,27 @@
-{if no_files}<div class="alert alert-info">
+{if no_files}
+<div class="alert alert-info">
 	<p>No Files Have Been Uploaded</p>
 </div>{/if}
-{if files}<table class="table table-striped table-hover"><tbody>
-	{wiki:files limit="50" paginate="bottom"}
-	<tr><td><a href="{path:view_file}">{file_name}</a> - Uploaded: {upload_date format="%j %M %Y"} by <a href="{path:author_profile}">{author}</a></td></tr>
-	{paginate}
-		</tbody></table>
+
+<table>
+  <thead>
+    <tr>
+			<th width="200">Filename</th>
+			<th>Date Modified</th>
+			<th>User</th>
+		</tr>
+	</thead>
+	<tbody>
+		{wiki:files limit="50" paginate="bottom"}
+		<tr>
+			<td><a href="{path:view_file}">{file_name}</a></td>
+			<td>{upload_date format="%H:%i, %j %M %Y"}</td>
+			<td><a href="{path:author_profile}">{author}</a> {if notes}({notes}){/if}</td>
+
+			{paginate}
+
 		{pagination_links}
-		<ul class="pagination">
+		<ul class="no-bullet">
 			{first_page}
 			<li><a href="{pagination_url}" class="page-first">«</a></li>
 			{/first_page}
@@ -21,4 +35,7 @@
 		{/pagination_links}
 	{/paginate}
 	{/wiki:files}
+</tr>
+</tbody>
+</table>
 {/if}
