@@ -8,6 +8,7 @@
 {if preview}<div class="alert alert-info">
 	<p><small>You are viewing a preview of your submission.  No changes to the article have been made.</small></p>
 </div>
+
 <div class="callout primary">{preview}</div>{/if}
 <p><small>Continue editing the page below:</small></p>
 {form_declaration:wiki:edit}
@@ -18,94 +19,95 @@
 					<textarea name="article_content" id="article_content" rows="25" class="form-control">{content}</textarea>
 				</div>
 			</div>
-			{if uploads}
-			<div class="form-group">
-				<div class="small-12 small-offset-2 columns">
-<script type="text/javascript">
-function show_uploads()
-{
-	var obj = document.getElementById('recent_uploads');
-	if (obj.style.display == "block")
-		obj.style.display = "none";
-	else
-		obj.style.display = "block";
-}
-function add_tag (ourTag)
-{
-	var theField = document.getElementById('article_content');
-	if (document.selection)
-	{
-		theSelection = document.selection.createRange().text;
-		theField.focus();
-		document.selection.createRange().text = ourTag;
-		theSelection = '';
-		theField.blur();
-		theField.focus();
-		return;
-	}
-	else if ( ! isNaN(theField.selectionEnd))
-	{
-		var selLength = theField.textLength;
-		var selStart = theField.selectionStart;
-		var selEnd = theField.selectionEnd;
-		if (selEnd <= 2 && typeof(selLength) != 'undefined')
-			selEnd = selLength;
-		var s1 = (theField.value).substring(0,selStart);
-		var s2 = (theField.value).substring(selStart, selEnd)
-		var s3 = (theField.value).substring(selEnd, selLength);
-		var newStart = selStart + ourTag.length;
-		theField.value = s1 + ourTag + s3;
-		theField.focus();
-		theField.selectionStart = newStart;
-		theField.selectionEnd = newStart;
-		return;
-	}
-	theField.value += ourTag;
-}
-</script>
-					&nbsp;<a href="javascript:void(0);" onclick="show_uploads();return false;">View 10 Most Recent File Uploads</a>
-				</div>
-			</div>
-			<div class="form-group" id="recent_uploads" style="display:none;">
-				<label class="small-2 control-label">Recent Files</label>
-				<div class="small-10"><table class="table table-striped table-hover"><tbody>
-					{wiki:files limit="10" orderby="upload_date" sort="desc"}
-					<tr><td>
-						<a href="{path:view_file}">{file_name}</a> - Uploaded: {upload_date format="%j %M %Y"}: [<a href="javascript:void(0);" onclick="add_tag('[[{file_namespace}:{file_name}]]');return false;">Add File</a>]{if is_image} - [<a href="javascript:void(0);" onclick="add_tag('[[{image_namespace}:{file_name}]]');return false;">Add Image</a>]{/if}
-					</td></tr>
-					{/wiki:files}
-				</tbody></table></div>
-			</div>
-			{/if}
 
 			<ul class="accordion" data-accordion data-allow-all-closed="true">
-        <li class="accordion-item" data-accordion-item>
-          <a class="accordion-title">Formatting Guide</a>
-          <div class="accordion-content" data-tab-content>
+        		<li class="accordion-item" data-accordion-item>
+		          <a class="accordion-title">Formatting Guide</a>
+					<div class="accordion-content" data-tab-content>
 						<h5>External link:</h5>
-						<code>
-								[url=http://example.com/]my site[/url]
-						</code>
+						<pre>[url=http://example.com/]my site[/url]</pre>
 						<h5>Create or link a page:</h5>
-						<code>
-							[[Page title]]
-						</code>
+						<pre>[[Page title]]</pre>
 						<h5>Create single category:</h5>
-						<code>
-							[[Category:Category Name]]
-						</code>
+						<pre>[[Category:Category Name]]</pre>
 						<h5>Create nested category:</h5>
-						<code>
-							[[Category:Parent Category::Child Category]]
-						</code>
+						<pre>[[Category:Parent Category::Child Category]]</pre>
 						<h5>Bold text:</h5>
-						<code>
-							[b]some bold text[/b]
-						</code>
+						<pre>[b]some bold text[/b]</pre>
+						<h5>Italic text:</h5>
+						<pre>[i]some italic text[/i]</pre>
+						<h5>Code block:</h5>
+						<pre>[code]some code[/code]</pre>
 					</div>
 				</li>
 			</ul>
 
+
+
+{if uploads}
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item" data-accordion-item>
+        <a class="accordion-title" href="javascript:void(0);" onclick="show_uploads();return false;">10 Most Recent Uploads</a>
+            <div class="accordion-content" data-tab-content>
+            <div class="form-group">
+                <div class="small-12 columns">
+<script type="text/javascript">
+function show_uploads()
+{
+    var obj = document.getElementById('recent_uploads');
+    if (obj.style.display == "block")
+        obj.style.display = "none";
+    else
+        obj.style.display = "block";
+}
+function add_tag (ourTag)
+{
+    var theField = document.getElementById('article_content');
+    if (document.selection)
+    {
+        theSelection = document.selection.createRange().text;
+        theField.focus();
+        document.selection.createRange().text = ourTag;
+        theSelection = '';
+        theField.blur();
+        theField.focus();
+        return;
+    }
+    else if ( ! isNaN(theField.selectionEnd))
+    {
+        var selLength = theField.textLength;
+        var selStart = theField.selectionStart;
+        var selEnd = theField.selectionEnd;
+        if (selEnd <= 2 && typeof(selLength) != 'undefined')
+            selEnd = selLength;
+        var s1 = (theField.value).substring(0,selStart);
+        var s2 = (theField.value).substring(selStart, selEnd)
+        var s3 = (theField.value).substring(selEnd, selLength);
+        var newStart = selStart + ourTag.length;
+        theField.value = s1 + ourTag + s3;
+        theField.focus();
+        theField.selectionStart = newStart;
+        theField.selectionEnd = newStart;
+        return;
+    }
+    theField.value += ourTag;
+}
+</script>
+                </div>
+            </div>
+            <div class="form-group" id="recent_uploads" style="display:none;">
+                <label class="small-2 control-label">Recent Files</label>
+                <div class="small-10"><table class="table table-striped table-hover"><tbody>
+                    {wiki:files limit="10" orderby="upload_date" sort="desc"}
+                    <tr><td>
+                        <a href="{path:view_file}">{file_name}</a> - Uploaded: {upload_date format="%j %M %Y"}: [<a href="javascript:void(0);" onclick="add_tag('[[{file_namespace}:{file_name}]]');return false;">Add File</a>]{if is_image} - [<a href="javascript:void(0);" onclick="add_tag('[[{image_namespace}:{file_name}]]');return false;">Add Image</a>]{/if}
+                    </td></tr>
+                    {/wiki:files}
+                </tbody></table></div>
+            </div>
+            {/if}
+    </li>
+</ul>
 
 			<div class="form-group">
 				<label for="revision-notes" class="small-2 control-label">Notes</label>
